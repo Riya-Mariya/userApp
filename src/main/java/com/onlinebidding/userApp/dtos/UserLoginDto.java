@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class UserLoginDto {
-    @NotEmpty
+    @NotEmpty(message = "Username cannot be empty")
     private String userName;
-    @NotEmpty
+    @NotEmpty(message = "Password cannot be empty")
     private String password;
 }

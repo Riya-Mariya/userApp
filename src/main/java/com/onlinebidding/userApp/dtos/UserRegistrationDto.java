@@ -11,10 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class UserRegistrationDto {
-    @NotEmpty
+    private String name;
+    @NotEmpty(message = "Username cannot be empty")
     private String userName;
-    @NotEmpty
+    @NotEmpty(message = "Password cannot be empty")
     private String password;
+    @NotEmpty(message = "Role cannot be empty")
     private String role;
     private String emailId;
     private String contactNumber;

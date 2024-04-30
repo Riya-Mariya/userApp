@@ -23,6 +23,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         var bCryptEncoder = new BCryptPasswordEncoder();
         UserInfo userInfo = UserInfo.builder()
                 .userName(userRegistrationDto.getUserName())
+                .name(userRegistrationDto.getName())
                 .password(bCryptEncoder.encode(userRegistrationDto.getPassword()))
                 .role(userRegistrationDto.getRole())
                 .contactNumber(userRegistrationDto.getContactNumber())

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,9 +39,13 @@ public class UserRegistrationController {
 
         try {
             UserInfo userInfo = userInfoService.registerUserInfo(userRegistrationDto);
-            var response = Map.of("user", userInfo);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
+            return ResponseEntity.ok(userInfo);
+        } catch(DataIntegrityViolationException ex){
+            logger.error("UserName already exists {}", ex.getMessage());
+            return ResponseEntity.badRequest().body("UserName already exist. Please choose another one");
+
+        }
+        catch (Exception e) {
             logger.error("Exception while registering the user {}", e.getMessage());
             return ResponseEntity.badRequest().body("Invalid user details");
         }
