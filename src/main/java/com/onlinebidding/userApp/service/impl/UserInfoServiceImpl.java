@@ -5,7 +5,6 @@ import com.onlinebidding.shared.models.UserInfo;
 import com.onlinebidding.shared.repository.UserInfoRepository;
 import com.onlinebidding.userApp.dtos.UserRegistrationDto;
 import com.onlinebidding.userApp.service.UserInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,8 +14,11 @@ import java.util.Optional;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
-    @Autowired
-    private UserInfoRepository userInfoRepository;
+    private final UserInfoRepository userInfoRepository;
+
+    public UserInfoServiceImpl(UserInfoRepository userInfoRepository) {
+        this.userInfoRepository = userInfoRepository;
+    }
 
     @Override
     public UserInfo registerUserInfo(UserRegistrationDto userRegistrationDto) {
